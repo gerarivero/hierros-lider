@@ -37,7 +37,7 @@ services:
       labels:
         # traefik common
         - traefik.enable=true
-        - traefik.docker.network=traefik_public
+        - traefik.docker.network=traefik_network
         # traefikv2
         - "traefik.http.routers.observium.rule=Host(`observium-hl.iteasy.com.ar`)"
         - "traefik.http.routers.observium.entrypoints=https"
