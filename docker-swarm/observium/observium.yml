@@ -20,7 +20,7 @@ services:
       - 8088:80
     environment:
       - OBSERVIUM_ADMIN_USER=administrador
-      - OBSERVIUM_ADMIN_PASS=P@ssw0rd!..
+      - OBSERVIUM_ADMIN_PASS=P@ssw0rd!
       - OBSERVIUM_DB_HOST=db
       - OBSERVIUM_DB_NAME=observium
       - OBSERVIUM_DB_USER=observium 
