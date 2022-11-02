@@ -1,1 +1,1 @@
-*.env
+traefik/config/*.env
