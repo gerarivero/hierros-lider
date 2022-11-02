@@ -1,0 +1,51 @@
+version: '3.9'
+
+services:
+  db:
+    image: mariadb:10.6.4
+    environment:
+      - MYSQL_ROOT_PASSWORD=passw0rd!..
+      - MYSQL_USER=observium
+      - MYSQL_PASSWORD=passw0rd!..
+      - MYSQL_DATABASE=observium
+      - TZ=Asia/Bangkok
+    volumes:
+      - ./db/data:/var/lib/mysql
+    networks:
+      - internal
+
+  app:
+    image: mbixtech/observium:22.5
+    environment:
+      - OBSERVIUM_ADMIN_USER=administrador
+      - OBSERVIUM_ADMIN_PASS=P@ssw0rd!..
+      - OBSERVIUM_DB_HOST=db
+      - OBSERVIUM_DB_NAME=observium
+      - OBSERVIUM_DB_USER=observium 
+      - OBSERVIUM_DB_PASS=passw0rd!..
+      - OBSERVIUM_BASE_URL=https://observium-hl.iteasy.com.ar
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - ./logs:/opt/observium/logs
+      - ./rrd:/opt/observium/rrd
+    networks:
+      - internal
+      - traefik_network
+    deploy:
+      labels:
+        # traefik common
+        - traefik.enable=true
+        - traefik.docker.network=traefik_public
+        # traefikv2
+        - "traefik.http.routers.observium.rule=Host(`observium-hl.iteasy.com.ar`)"
+        - "traefik.http.routers.observium.entrypoints=https"
+        - "traefik.http.services.observium.loadbalancer.server.port=80" 
+
+networks:
+  traefik_network:
+    external: true
+  internal:
+    driver: overlay
+    ipam:
+      config:
+        - subnet: 172.16.33.0/24
