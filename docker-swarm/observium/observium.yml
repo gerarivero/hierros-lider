@@ -16,6 +16,8 @@ services:
 
   app:
     image: mbixtech/observium:22.5
+    ports:
+      - 8088:80
     environment:
       - OBSERVIUM_ADMIN_USER=administrador
       - OBSERVIUM_ADMIN_PASS=P@ssw0rd!..
