@@ -8,7 +8,7 @@ services:
       - MYSQL_USER=observium
       - MYSQL_PASSWORD=passw0rd!..
       - MYSQL_DATABASE=observium
-      - TZ=Asia/Bangkok
+      - TZ=America/Argentina/Buenos_Aires
     volumes:
       - ./db/data:/var/lib/mysql
     networks:
